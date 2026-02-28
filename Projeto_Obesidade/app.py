@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 # Dicionários de Tradução
 
@@ -55,8 +56,15 @@ map_resultado = {
 }
 
 # Carregar modelo e scaler
-modelo = joblib.load("models/model.pkl")
-scaler = joblib.load("models/scaler.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "models", "model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "models", "scaler.pkl")
+COLUNAS_PATH = os.path.join(BASE_DIR, "models", "colunas.pkl")
+
+modelo = joblib.load(MODEL_PATH)
+scaler = joblib.load(SCALER_PATH)
+colunas = joblib.load(COLUNAS_PATH)
 
 # Interface
 st.set_page_config(
