@@ -150,16 +150,16 @@ def avaliar_modelo(modelo, X_test, y_test):
 
 
 # Salvar Modelos
-def salvar_modelo(modelo, scaler):
+def salvar_modelo(modelo, scaler, colunas):
 
-    # Criar pasta se não existir
     if not os.path.exists("models"):
         os.makedirs("models")
 
     joblib.dump(modelo, "models/model.pkl")
     joblib.dump(scaler, "models/scaler.pkl")
+    joblib.dump(colunas, "models/colunas.pkl")
 
-    print("Modelo e scaler salvos com sucesso.")
+    print("Modelo, scaler e colunas salvos com sucesso.")
 
 
 
@@ -178,6 +178,9 @@ def main():
 
     # 4. Encoding
     X = encode_features(X)
+
+    # Salvar colunas
+    colunas = X.columns
 
     # 5. Scaling
     X_scaled, scaler = scale_df(X)
@@ -198,7 +201,7 @@ def main():
     avaliar_modelo(modelo_melhor, X_test, y_test)
 
     # 10. Salvar
-    salvar_modelo(modelo_melhor, scaler)
+    salvar_modelo(modelo_melhor, scaler, colunas)
 
     print("\nPipeline finalizado com sucesso.")
 
